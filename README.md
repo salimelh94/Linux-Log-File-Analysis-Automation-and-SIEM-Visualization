@@ -14,28 +14,30 @@ By doing this manually, I gained a much deeper understanding of how system logs 
 
 ---
 
-## 🔍 Step-by-Step Process
+## Step-by-Step Process
 
 ### Step 1: Getting the Data
 I started by downloading the `Linux_2k.log` dataset. This file is great because it simulates a real-world Linux environment, filled with user sessions, system events, and—most importantly—authentication attempts.
 
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/0b0e2bffc6d9383b4f85c56dbf22969d9de39548/images/1.png)
 
 
 ### Step 2: First Look & Review
 I opened the file in **VS Code** to keep things organized. To keep the analysis focused and high-quality, I decided to focus on the first **20 to 40 lines**. This helped me get familiar with the log structure without getting overwhelmed by thousands of lines of data.
 
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
+![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/0b0e2bffc6d9383b4f85c56dbf22969d9de39548/images/2.png)
 
+![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/0b0e2bffc6d9383b4f85c56dbf22969d9de39548/images/2-1.png)
 
 ### Step 3: Hunting for Red Flags
+
 I carefully scanned the entries looking for "red flags" that suggest a system is under attack. I specifically looked for:
 * **Failed logins** coming repeatedly from the same IP address.
 * Attempts to log in using **invalid or unknown usernames**.
 * **Abnormal system exits** or alerts.
 
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/0b0e2bffc6d9383b4f85c56dbf22969d9de39548/images/2-3.png)
 
 
 **Why does this matter?** These patterns usually mean someone (or a bot) is trying to brute-force their way into the system or looking for non-existent users to exploit.
@@ -43,7 +45,126 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ### Step 4: Documentation
 I made it a goal to log between **10 and 20 specific entries** from my initial sample. By focusing on this smaller set, I was able to practice a real SOC workflow (**Monitor → Detect → Analyze**) while ensuring I truly understood what each line of the log was telling me.
 
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/f93d3cce5b8b87f076ce9def48c0d3ce18d4f965/images/4.png)
+
+
+Step 5: Summarize the Findings
+
+Always write a summary :
+
+The logs indicate several failed login attempts from the IP addresses 218.188.2.4 and
+220.135.151.1, mainly targeting the root account. This strongly suggests the possibility
+of brute-force attack attempts. The repeated failures from these specific IP addresses
+indicate either automated attacks or probing activities. Additionally, the presence of
+"user unknown" messages shows that attackers are randomly trying various usernames.
+Moreover, the event labeled "ALERT exited abnormally" suggests there may be an
+underlying system issue that requires further investigation.
+
+
+# Project 2: Automating Log Analysis with Python
+
+## About this Project
+After getting my hands dirty with manual log review in Project 1, I realized that analyzing thousands of lines by hand isn't scalable. In this second phase, I took it a step further by **automating the process**. 
+
+I wrote a Python script to scan through log files and instantly flag suspicious patterns. To simulate a more realistic scenario, I shifted my focus to a larger chunk of data (lines 200–500), showing how coding can make a SOC Analyst's job much more efficient.
+
+## 🛠️ What I used
+* **Language:** Python 3.x
+* **Editor:** VS Code
+* **Dataset:** The same `Linux_2k.log` from LogHub used in the beginner project.
+* **Key Skills:** Scripting, pattern matching, and handling larger datasets.
+
+---
+
+##  The Automation Process
+
+### Step 1: Setting up the Environment
+I organized my workspace in **VS Code** by creating a dedicated project folder and a script named `log_analysis.py`. Keeping the log file and the script in the same directory made the execution seamless.
+
+![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/49325c1f4b1d36fb5cbff2a40dd22beea83547cd/images/2-1.png)
+
+
+### Step 2: Developing the Script
+
+The script was designed to perform four main tasks:
+
+Python script for log_analysis.py:
+
+# log_analysis.py
+# Step 1: Open and read log file
+with open("Linux_2k.log", "r", encoding="utf-8") as file:
+logs = file.readlines()
+
+
+# Step 2: Focus on lines 200–500
+subset_logs = logs[199:500] # Python is 0-based index
+
+# Step 3: Search for suspicious patterns
+
+suspicious_entries = []
+for line in subset_logs:
+if "Failed password" in line:
+suspicious_entries.append(("Failed Login", line.strip()))
+elif "authentication failure" in line:
+suspicious_entries.append(("Auth Failure", line.strip()))
+elif "user unknown" in line or "invalid user" in line:
+suspicious_entries.append(("Unknown User", line.strip()))
+
+# Step 4: Print Results
+
+print("=== Suspicious Log Entries (Lines 200–500) ===")
+for entry_type, entry in suspicious_entries:
+print(f"[{entry_type}] {entry}")
+print(f"\nTotal suspicious entries found:
+{len(suspicious_entries)}")
+
+
+1.  **Read the Data:** Open the `Linux_2k.log` file securely using Python.
+2.  **Targeted Scanning:** Instead of looking at a few lines, I programmed it to slice the data and focus specifically on **lines 200 to 500**.
+3.  **Pattern Detection:** I defined specific "red flags" for the script to hunt for, such as:
+    * `Failed password`
+    * `authentication failure`
+    * `invalid user` or `user unknown`
+4.  **Reporting:** The script categorizes each finding and prints a summary with the total count of suspicious events.
+
+   ![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/49325c1f4b1d36fb5cbff2a40dd22beea83547cd/images/2-2.png)
+
+   
+
+### Step 3: Running the Analysis
+
+By running `python log_analysis.py` in the terminal, the script instantly parsed the 300-line subset. 
+
+![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/49325c1f4b1d36fb5cbff2a40dd22beea83547cd/images/2-3.png)
+
+
+It automatically flagged every instance of unauthorized access attempts, including the specific type of failure and the original log entry.
+
+
+![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/49325c1f4b1d36fb5cbff2a40dd22beea83547cd/images/2-3-1.png)
+
+
+
+
+
+
+
+
+---
+
+## 💡 Why This Matters
+Moving from manual review to **automation** is a game-changer. What took me several minutes to analyze by eye in the first project now takes a fraction of a second. This script allows me to quickly identify brute-force attempts and "Unknown User" probes, proving that even a simple script can significantly strengthen a security workflow.
+
+
+
+
+
+
+
+
+
+
+
 
 
 ---
