@@ -213,7 +213,35 @@ With the SIEM environment now live, the next steps involve uploading the `Linux_
 
 ---
 
+### Step 2: Uploading the Log File
 
+
+Once I had the dashboard ready, I moved on to ingesting the data. I went to **Settings → Add Data** and chose the **Upload** option to bring in the same `Linux_2k.log` file I used in the previous objectives.
+
+
+![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/2bc49a7a4cda780141f3ddc68ce53c426eaed719/images/3-4.png)
+
+
+
+After selecting the file, I moved to the **Source Type** section. Splunk is pretty smart and automatically detected the format, but to keep things organized, I clicked **Save As** and filled out the configuration like this:
+
+![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/2bc49a7a4cda780141f3ddc68ce53c426eaed719/images/3-5.png)
+
+
+![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/2bc49a7a4cda780141f3ddc68ce53c426eaed719/images/3-6.png)
+
+
+
+* **Source Type:** (Left as the default auto-detected value)
+* **Name:** Linux
+* **Description:** Log Analysis
+* **Category:** Custom
+* **App:** Search & Reporting
+  
+
+Moving into the **Input Settings**, I set the **Host** to a constant value (**LAPTOP-8LP9R63O**) and chose the **Default index**. Doing this ensures that all my log events are properly labeled and stored so I can find them easily later. *(Note: This host value was specific to my device and will vary depending on the machine being used).*
+
+**A quick troubleshooting tip:** During the upload, I found that if Splunk throws an error like *"Upload failed with ERROR: can only concatenate str (not 'NoneType') to str,"* the best fix is to simply rename the log file to **"Linux2k"** and try again. Splunk can be a bit picky if the filename or path contains spaces or special characters!
 
 
 
