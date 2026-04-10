@@ -183,10 +183,13 @@ To get started, I set up a professional monitoring environment:
 ![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/c229108c8653a09dbc739e3c56acb16343df9dbd/images/3-1.png)
 
   
-* **Setup:** Since my current environment is running on **Windows**, I chose the corresponding installation package.
+* **Setup:** Since my current environment is running on **Windows**, I chose the corresponding installation package
+
+![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/098fac4b227ee75d1bfdef525cee3fb2a8c67f63/images/4-2.png)
+
+  
 * **Account Creation:** I registered my account and configured a local admin user with secure credentials to manage the instance.
 
-  ![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/582743655f9a22f7f2189937833145eef0dc50df/images/step%204.png)
 
 ### Step 2: Accessing the Dashboard
 
