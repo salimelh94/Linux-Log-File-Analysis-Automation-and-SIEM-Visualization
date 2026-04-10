@@ -90,16 +90,16 @@ The script was designed to perform four main tasks:
 
 Python script for log_analysis.py:
 
-# log_analysis.py
-# Step 1: Open and read log file
+ log_analysis.py
+ Step 1: Open and read log file
 with open("Linux_2k.log", "r", encoding="utf-8") as file:
 logs = file.readlines()
 
 
-# Step 2: Focus on lines 200–500
+ Step 2: Focus on lines 200–500
 subset_logs = logs[199:500] # Python is 0-based index
 
-# Step 3: Search for suspicious patterns
+Step 3: Search for suspicious patterns
 
 suspicious_entries = []
 for line in subset_logs:
@@ -110,7 +110,7 @@ suspicious_entries.append(("Auth Failure", line.strip()))
 elif "user unknown" in line or "invalid user" in line:
 suspicious_entries.append(("Unknown User", line.strip()))
 
-# Step 4: Print Results
+ Step 4: Print Results
 
 print("=== Suspicious Log Entries (Lines 200–500) ===")
 for entry_type, entry in suspicious_entries:
