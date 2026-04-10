@@ -92,34 +92,9 @@ The script was designed to perform four main tasks:
 
 Python script for log_analysis.py:
 
- log_analysis.py
- Step 1: Open and read log file
-with open("Linux_2k.log", "r", encoding="utf-8") as file:
-logs = file.readlines()
-
-
- Step 2: Focus on lines 200–500
-subset_logs = logs[199:500] # Python is 0-based index
-
-Step 3: Search for suspicious patterns
-
-suspicious_entries = []
-for line in subset_logs:
-if "Failed password" in line:
-suspicious_entries.append(("Failed Login", line.strip()))
-elif "authentication failure" in line:
-suspicious_entries.append(("Auth Failure", line.strip()))
-elif "user unknown" in line or "invalid user" in line:
-suspicious_entries.append(("Unknown User", line.strip()))
-
- Step 4: Print Results
-
-print("=== Suspicious Log Entries (Lines 200–500) ===")
-for entry_type, entry in suspicious_entries:
-print(f"[{entry_type}] {entry}")
-print(f"\nTotal suspicious entries found:
-{len(suspicious_entries)}")
-
+ ![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/e21c5d22882a8a3ada789ae0ba7e6e938e032d19/images/script%201.png)
+ ![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/e21c5d22882a8a3ada789ae0ba7e6e938e032d19/images/script%202.png)
+ 
 
 1.  **Read the Data:** Open the `Linux_2k.log` file securely using Python.
 2.  **Targeted Scanning:** Instead of looking at a few lines, I programmed it to slice the data and focus specifically on **lines 200 to 500**.
