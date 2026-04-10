@@ -321,5 +321,5 @@ Finally, I moved to the **Visualization** tab and generated a line chart to plot
 
 ---
 
-## 💡 Key Takeaway
+##  Key Takeaway
 This exercise taught me that security isn't just about automated tools; it's about knowing what "normal" looks like so you can spot the "suspicious."
