@@ -99,10 +99,12 @@ Python script for log_analysis.py:
 1.  **Read the Data:** Open the `Linux_2k.log` file securely using Python.
 2.  **Targeted Scanning:** Instead of looking at a few lines, I programmed it to slice the data and focus specifically on **lines 200 to 500**.
 3.  **Pattern Detection:** I defined specific "red flags" for the script to hunt for, such as:
+   
     * `Failed password`
     * `authentication failure`
     * `invalid user` or `user unknown`
-4.  **Reporting:** The script categorizes each finding and prints a summary with the total count of suspicious events.
+     
+5.  **Reporting:** The script categorizes each finding and prints a summary with the total count of suspicious events.
 
    ![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/49325c1f4b1d36fb5cbff2a40dd22beea83547cd/images/2-2.png)
 
