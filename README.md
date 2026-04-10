@@ -123,16 +123,40 @@ It automatically flagged every instance of unauthorized access attempts, includi
 ![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/49325c1f4b1d36fb5cbff2a40dd22beea83547cd/images/2-3-1.png)
 
 
+### Step 4: Exporting Results for Professional Review
+
+To wrap up the automation, I added a final step to the script that exports all flagged activity into a **CSV file** (`suspicious_logs.csv`)
+
+![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/582743655f9a22f7f2189937833145eef0dc50df/images/step%204%201.png)
 
 
+
+Scanning logs in the terminal is great, but having them in a structured format like a spreadsheet is what makes the data actually actionable. I used Python's `csv` module to:
+
+![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/582743655f9a22f7f2189937833145eef0dc50df/images/step%204.png)
+
+1. **Create a Header:** Organising the data into "Type" and "Log Entry" columns.
+2. **Automate the Save:** The script now writes every finding into the file automatically.
+
+### Structured Output Example
+Once the script runs, the output in Excel or Google Sheets looks like this:
+
+| Type | Log Entry |
+| :--- | :--- |
+| **Auth Failure** | Jun 22 03:17:26 combo sshd(pam_unix)[16206]: authentication failure; rhost=n219076184117... |
+| **Auth Failure** | Jun 22 03:17:35 combo sshd(pam_unix)[16210]: authentication failure; rhost=n219076184117... |
+| **Auth Failure** | Jun 22 03:17:36 combo sshd(pam_unix)[16212]: authentication failure; rhost=n219076184117... |
+
+---
+
+## 💡 Final Takeaway (Objective 2)
+By completing this objective, I moved from manual observation to a **professional SOC workflow**. This automation allows me to handle much larger datasets (lines 200–500 and beyond) in a fraction of the time, providing a clean, structured report ready for further investigation or incident response documentation.
 
 
 
 
 ---
 
-## 💡 Why This Matters
-Moving from manual review to **automation** is a game-changer. What took me several minutes to analyze by eye in the first project now takes a fraction of a second. This script allows me to quickly identify brute-force attempts and "Unknown User" probes, proving that even a simple script can significantly strengthen a security workflow.
 
 
 
