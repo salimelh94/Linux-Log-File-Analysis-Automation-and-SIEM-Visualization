@@ -149,11 +149,64 @@ Once the script runs, the output in Excel or Google Sheets looks like this:
 
 ---
 
-## 💡 Final Takeaway (Objective 2)
+##  Final Takeaway (Objective 2)
 By completing this objective, I moved from manual observation to a **professional SOC workflow**. This automation allows me to handle much larger datasets (lines 200–500 and beyond) in a fraction of the time, providing a clean, structured report ready for further investigation or incident response documentation.
 
 
+# Objective 3: Log Analysis and Visualization with Splunk
 
+![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/c229108c8653a09dbc739e3c56acb16343df9dbd/images/ciscosplunk.jpg)
+
+
+##  Project Overview
+Building on my previous manual and automated analysis, this stage introduces **Splunk**, a professional **SIEM (Security Information and Event Management)** tool used in real-world SOC environments. 
+
+In this phase, I moved beyond simple scripts to learn how to ingest, query, and visualize log data at scale. This allows for a much more powerful way to identify suspicious activities across large datasets.
+
+##  Prerequisites
+* **Foundation:** Completed Objectives 1 and 2 (understanding log structures and threat indicators).
+* **Environment:** Splunk Enterprise (Free Trial).
+* **Dataset:** The `Linux_2k.log` file from LogHub.
+* **Concepts:** Basic understanding of data searching and filtering within a SIEM.
+
+---
+
+##  Setup and Configuration
+
+### Step 1: Installing Splunk Enterprise
+
+
+
+To get started, I set up a professional monitoring environment:
+* **Download:** I visited the [official Splunk website](https://www.splunk.com/en_us/download.html) and opted for the **Splunk Enterprise** free trial.
+
+![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/c229108c8653a09dbc739e3c56acb16343df9dbd/images/3-1.png)
+
+  
+* **Setup:** Since my current environment is running on **Windows**, I chose the corresponding installation package.
+* **Account Creation:** I registered my account and configured a local admin user with secure credentials to manage the instance.
+
+  ![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/582743655f9a22f7f2189937833145eef0dc50df/images/step%204.png)
+
+### Step 2: Accessing the Dashboard
+
+Once the installation was complete:
+1. I launched Splunk, which redirected me to the web-based login interface.
+
+![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/c229108c8653a09dbc739e3c56acb16343df9dbd/images/3-2.png)
+
+  
+3. After authenticating with my admin credentials, I successfully accessed the **Administrator Dashboard**.
+
+![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/c229108c8653a09dbc739e3c56acb16343df9dbd/images/3-3.png)
+
+   
+5. This dashboard serves as my central hub for data ingestion and security monitoring.
+
+---
+
+##  What's Next?
+With the SIEM environment now live, the next steps involve uploading the `Linux_2k.log` data to begin creating advanced queries and visual dashboards to track security threats in real-time.
 
 ---
 
