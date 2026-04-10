@@ -245,7 +245,72 @@ Moving into the **Input Settings**, I set the **Host** to a constant value (**LA
 
 
 
+### Step 3: Searching and Filtering Suspicious Activity
 
+After Splunk finished indexing the data, I was ready to start hunting for threats. My default search metadata was automatically generated as:  
+
+`source="Linux2k.log" host="LAPTOP-8LP9R63O" sourcetype="Linux"`
+
+To pinpoint the red flags, I used the following query in Splunk’s search bar:  
+
+`source="Linux2k.log" host="LAPTOP-8LP9R63O" sourcetype="Linux" ("Failed password" OR "authentication failure" OR "invalid user" OR "user unknown")`
+
+This query was a game-changer because it instantly filtered through the noise to show only the entries that point toward brute-force attempts or unauthorized access. By running this, I could easily spot:  
+
+* **Repeated failed logins** indicating a persistent attacker.  
+* **Invalid or unknown users** being targeted by automated bots.  
+* **Authentication failures** that require deeper investigation.
+
+  ![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/9a793b5c03b6df1ae1f8a82d2f98fc711d67ca23/images/3-7.png)
+
+Scanning these filtered results allowed me to identify clear patterns in timestamps, specific usernames being targeted, and the source IP addresses involved in the activity.
+
+### Step 4: Visualizing the Data
+
+
+After running the query, Splunk displayed all matching log entries under the **Events** tab. Looking through the data, one specific sequence immediately stood out to me:
+
+* **Repeated failed login attempts** targeting the same username: `root`.
+* All attempts originated from the **same source IP**: `207.243.167.114`.
+* The attempts occurred within **very short intervals** (just a few seconds apart).
+
+This behavior is a textbook example of a brute-force attack. To understand the full scale of the threat, I used Splunk’s different views to analyze the data deeper:
+
+![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/2cd148734c103c3de29e221d03efe894bd704ca1/images/5.png)
+
+#### Events View – Identifying the Suspicious Source
+
+By scrolling through the individual logs in the Events view, I saw the IP `207.243.167.114` appearing over and over. This is a massive red flag because `root` is the highest-value target on any system. Seeing repeated failures like this indicates likely unauthorized access attempts that a SOC analyst would immediately escalate.
+
+####  Patterns View — Confirming Repetitive Behavior
+
+I switched to the **Patterns** tab, where Splunk clusters similar events together. One pattern was dominant: **“Failed password for root”**. This confirmed that the activity wasn't random—it was a systematic, repetitive attack using the same target account across multiple source IPs.
+
+![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/2cd148734c103c3de29e221d03efe894bd704ca1/images/5-2.png)
+
+#### Statistics View – Breaking Down the Data
+
+Next, I used the **Statistics** tab to group events by IP, user, and event count. This tabular view gave me much-needed clarity:
+
+* The IP `150.183.249.110` actually had the highest event count.
+* The targeted username was consistently `root`.
+* Other IPs showed fewer, more scattered attempts.
+
+  ![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/2cd148734c103c3de29e221d03efe894bd704ca1/images/5-3.png)
+  
+This view allowed me to see exactly which sources were the most aggressive and where the attack was focused.
+
+#### Visualization View – Presenting the Attack Timeline
+
+Finally, I moved to the **Visualization** tab and generated a line chart to plot these authentication failures over time. The visual spikes made the security incident impossible to miss:
+
+![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/2cd148734c103c3de29e221d03efe894bd704ca1/images/5-4.png)
+
+* **Sharp spikes** in failures within short intervals.
+* **Burst patterns**, which strongly suggest the use of automated scripts or botnets rather than a human typing.
+* **Targeting root**, implying an attempt to gain full administrative access.
+
+**Conclusion:** This visualization perfectly demonstrates how SIEM tools like Splunk allow us to detect patterns at scale. By correlating activity over time, I was able to prioritize this threat and see the "big picture" of the attack in a way that manual review never could.
 
 
 
