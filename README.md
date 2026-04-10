@@ -1,5 +1,7 @@
 # Linux-Log-File-Analysis-Automation-and-SIEM-Visualization
 
+![images alt](https://github.com/salimelh94/Linux-Log-File-Analysis-Automation-and-SIEM-Visualization/blob/3871186e81c115899b2ab3eb1cad1f2a972ca9ca/images/5nSIK.jpg)
+
 # Project 1: Manual Log Analysis (SOC Workflow)
 
 ##  About this Project
